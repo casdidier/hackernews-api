@@ -7,7 +7,7 @@ export const App = () => {
 
   useEffect(() => {
 
-    getStoriesIds().then(lemons => lemons && setStoryIds(lemons.data))
+    getStoriesIds().then(data => data && setStoryIds(data))
 
   }, [])
 
