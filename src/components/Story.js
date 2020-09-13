@@ -1,33 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { getStory, getStoriesIds } from '../services/hnApi';
-import { StoryWrapper, StoryMeta, StoryMetaElement, StoryTitle } from '../styles/StoryStyles';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect, memo } from 'react';
+import { getStory } from '../services/hnApi';
+import {
+  StoryWrapper,
+  StoryTitle,
+  StoryMeta,
+  StoryMetaElement,
+} from '../styles/StoryStyles';
+import { mapTime } from '../mappers/mapTime';
 
-
-export const Story = ({ storyId }) => {
-  const [story, setStory] = useState({})
+export const Story = memo(function Story({ storyId }) {
+  const [story, setStory] = useState({});
 
   useEffect(() => {
-    getStory(storyId).then(data => data && data.url && setStory(data))
+    getStory(storyId).then(data => { data && data.url && setStory(data); console.log(data) });
+
   }, []);
 
   return story && story.url ? (
     <StoryWrapper data-testid="story">
-
       <StoryTitle>
-        <p>{story.title}</p>
+        <a href={story.url}>{story.title}</a>
       </StoryTitle>
-
       <StoryMeta>
-        <span className="story__by" data-testid="story-by">
+        <span data-testid="story-by">
           <StoryMetaElement color="#000">By:</StoryMetaElement> {story.by}
         </span>
-        <span className="story__time" data-testid="story-time">
+        <span data-testid="story-time">
           <StoryMetaElement color="#000">Posted:</StoryMetaElement> {` `}
-          {story.time}
+          {mapTime(story.time)}
         </span>
-        <a href={story.url}></a>
       </StoryMeta>
-
-    </StoryWrapper >)
-    : null;
-}
+    </StoryWrapper>
+  ) : null;
+});
