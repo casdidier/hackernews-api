@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getStoriesIds, getStory } from '../services/hnApi';
+import { getStoryIds, getStory } from '../services/hnApi';
 import { Story } from '../components/Story';
 
 import {
@@ -15,7 +15,7 @@ export const StoriesContainer = () => {
 
   useEffect(() => {
 
-    getStoriesIds().then(data => data && setStoryIds(data))
+    getStoryIds().then(data => data && setStoryIds(data))
 
     getStory(24452766).then(data => console.log(data))
 

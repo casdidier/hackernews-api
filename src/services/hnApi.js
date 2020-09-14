@@ -14,7 +14,7 @@ export const getStory = async (storyId) => {
 }
 
 
-export const getStoriesIds = async () => {
+export const getStorys = async () => {
   const result = await axios
     .get(newStoriesUrl)
     .then(({ data }) => data);
